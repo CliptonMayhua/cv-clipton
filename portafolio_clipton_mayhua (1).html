@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipton Mayhua | Portafolio Profesional</title>
+    <style>
+        /* ==========================================
+           VARIABLES DE COLOR Y ESTILOS (FLAT DESIGN)
+           ========================================== */
+        :root {
+            --color-principal: #0056b3; /* Azul */
+            --color-secundario: #00bfff; /* Celeste */
+            --color-fondo: #f4f7f6;
+            --color-blanco: #ffffff;
+            --color-texto: #333333;
+            --color-texto-claro: #666666;
+            --color-hover: #0080ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+        }
+
+        /* ==========================================
+           NAVEGACIÓN Y MENÚ HAMBURGUESA
+           ========================================== */
+        nav {
+            background-color: var(--color-principal);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: var(--color-blanco);
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1);
+        }
+
+        .nav-links a {
+            color: var(--color-blanco);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-secundario);
+        }
+
+        /* Botón Hamburguesa */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--color-blanco);
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 10px; }
+        .hamburger span:nth-child(3) { top: 20px; }
+
+        /* Animación Hamburguesa a X */
+        .hamburger.active span:nth-child(1) {
+            top: 10px;
+            transform: rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            top: 10px;
+            transform: rotate(-45deg);
+        }
+
+        /* ==========================================
+           SECCIONES GENERALES
+           ========================================== */
+        section {
+            padding: 100px 5% 60px;
+        }
+
+        h1, h2, h3 {
+            color: var(--color-principal);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--color-secundario);
+            margin: 10px auto 0;
+        }
+
+        /* ==========================================
+           INICIO / HERO
+           ========================================== */
+        #inicio {
+            background-color: var(--color-principal);
+            color: var(--color-blanco);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px; /* offset para el navbar */
+        }
+
+        #inicio h1 {
+            color: var(--color-blanco);
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #inicio h2 {
+            color: var(--color-secundario);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        #inicio p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-secundario);
+            color: var(--color-blanco);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 4px; /* Flat design: bordes ligeramente redondeados o cuadrados */
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--color-blanco);
+            color: var(--color-principal);
+        }
+
+        .profile-img-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            background-color: var(--color-secundario);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 5px solid var(--color-blanco);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* ==========================================
+           PERFIL Y CONTACTO
+           ========================================== */
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            background-color: var(--color-blanco);
+            padding: 2rem;
+            box-shadow: 0 4px 0px rgba(0,0,0,0.05); /* Flat shadow */
+        }
+
+        .contacto-list {
+            list-style: none;
+        }
+
+        .contacto-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contacto-list li span {
+            font-weight: bold;
+            color: var(--color-principal);
+        }
+
+        /* ==========================================
+           EXPERIENCIA Y EDUCACIÓN (TARJETAS FLAT)
+           ========================================== */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--color-blanco);
+            padding: 2rem;
+            border-top: 5px solid var(--color-principal);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-top-color: var(--color-secundario);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .date {
+            color: var(--color-secundario);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .card ul {
+            padding-left: 1.5rem;
+            color: var(--color-texto-claro);
+        }
+
+        .card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==========================================
+           HABILIDADES
+           ========================================== */
+        #habilidades {
+            background-color: var(--color-blanco);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .skill-tag {
+            background-color: var(--color-principal);
+            color: var(--color-blanco);
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .tool-tag {
+            background-color: var(--color-secundario);
+            color: var(--color-blanco);
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer {
+            background-color: var(--color-principal);
+            color: var(--color-blanco);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* ==========================================
+           RESPONSIVIDAD (MEDIA QUERIES)
+           ========================================== */
+        @media (max-width: 900px) {
+            #inicio h1 { font-size: 3rem; }
+            .perfil-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Oculto por defecto */
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
+                background-color: var(--color-principal);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3rem;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+
+            /* Clase añadida por JS para mostrar el menú */
+            .nav-links.active {
+                transform: translateX(-100%); /* Desliza el menú */
+                right: -100%; /* Para que el transform lo posicione en 0 */
+                right: 0;
+                transform: translateX(0); /* Corrección de la lógica de deslizamiento */
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+                font-size: 1.5rem;
+                padding: 10px;
+                width: 100%;
+            }
+            
+            /* Ajuste de fix de transición para mobile */
+            .nav-links {
+                right: 0;
+                transform: translateX(100%);
+            }
+            .nav-links.active {
+                transform: translateX(0%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <a href="#inicio" class="logo">Clipton.</a>
+        
+        <button class="hamburger" aria-label="Menú" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="#inicio" class="nav-item">Inicio</a></li>
+            <li><a href="#perfil" class="nav-item">Perfil</a></li>
+            <li><a href="#experiencia" class="nav-item">Experiencia</a></li>
+            <li><a href="#formacion" class="nav-item">Formación</a></li>
+            <li><a href="#habilidades" class="nav-item">Habilidades</a></li>
+        </ul>
+    </nav>
+
+    <!-- SECCIÓN INICIO -->
+    <section id="inicio">
+        <div>
+            <div class="profile-img-container">
+                <!-- Se utiliza un placeholder que sigue el estilo flat -->
+                <div style="font-size: 5rem; color: white;">[Imagen de Clipton]</div>
+            </div>
+            <h1>Clipton Mayhua Coaquira</h1>
+            <h2>Licenciado en Marketing</h2>
+            <p>Especialista en marketing y proyectos. Apasionado por la enseñanza, con habilidades para el trabajo en equipo.</p>
+            <a href="#contacto" class="btn">Contáctame</a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PERFIL / SOBRE MÍ -->
+    <section id="perfil">
+        <h2 class="section-title">Sobre Mí</h2>
+        <div class="perfil-grid">
+            <div class="perfil-texto">
+                <h3>Perfil Profesional</h3>
+                <p>Profesional con más de cinco años de experiencia en el área de marketing. A lo largo de mi trayectoria he desarrollado una sólida especialización en marketing digital, gestión de proyectos y transformación digital. Soy un apasionado por la enseñanza y creo firmemente en el poder del trabajo colaborativo para alcanzar los objetivos estratégicos de las organizaciones.</p>
+            </div>
+            <div id="contacto" class="perfil-contacto">
+                <h3>Datos de Contacto</h3>
+                <ul class="contacto-list">
+                    <li><span>Teléfono:</span> 974 372 574</li>
+                    <li><span>Email:</span> clipton.mayhua@gmail.com</li>
+                    <li><span>Ubicación:</span> Socabaya - Arequipa</li>
+                    <li><span>LinkedIn:</span> Clipton Mayhua</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN EXPERIENCIA -->
+    <section id="experiencia" style="background-color: var(--color-fondo);">
+        <h2 class="section-title">Experiencia Laboral</h2>
+        
+        <div class="timeline-grid">
+            <!-- Trabajo 1 -->
+            <div class="card">
+                <h3>Docente</h3>
+                <h4>Instituto Certus</h4>
+                <span class="date">29/08/2022 - Actualidad</span>
+                <ul>
+                    <li>Elaboración de material didáctico para clases.</li>
+                    <li>Dictado de clases los fines de semana.</li>
+                    <li>Evaluación de los estudiantes.</li>
+                </ul>
+            </div>
+
+            <!-- Trabajo 2 -->
+            <div class="card">
+                <h3>Encargado de Marketing</h3>
+                <h4>Discitur</h4>
+                <span class="date">02/06/2021 - 30/07/2022</span>
+                <ul>
+                    <li>Planificación y ejecución de estrategias publicitarias.</li>
+                    <li>Generación, gestión y análisis de base de datos.</li>
+                    <li>Coordinación y dirección del equipo de marketing.</li>
+                </ul>
+            </div>
+
+            <!-- Trabajo 3 -->
+            <div class="card">
+                <h3>Analista - Encargado de Marketing</h3>
+                <h4>Instituto ITEP</h4>
+                <span class="date">24/02/2020 - 30/04/2021</span>
+                <ul>
+                    <li>Transformación digital en el área de marketing.</li>
+                    <li>Generación, gestión y análisis de base de datos.</li>
+                    <li>Diseño de artes publicitarios.</li>
+                </ul>
+            </div>
+
+            <!-- Trabajo 4 -->
+            <div class="card">
+                <h3>Planner Digital</h3>
+                <h4>Agencia de Marketing Clover Group</h4>
+                <span class="date">01/08/2019 - 30/01/2020</span>
+                <ul>
+                    <li>Ejecución de estrategias publicitarias por redes sociales.</li>
+                    <li>Analítica de resultados de campañas.</li>
+                    <li>Maquetación web con WordPress.</li>
+                </ul>
+            </div>
+
+            <!-- Trabajo 5 -->
+            <div class="card">
+                <h3>Social Media Planner</h3>
+                <h4>Agencia de Publicidad Six Lab</h4>
+                <span class="date">01/02/2019 - 30/07/2019</span>
+                <ul>
+                    <li>Social Media Planning & Community Management.</li>
+                    <li>Estrategias para campañas publicitarias.</li>
+                    <li>Analítica de resultados de campañas.</li>
+                </ul>
+            </div>
+
+            <!-- Trabajo 6 -->
+            <div class="card">
+                <h3>Jefe de Marketing</h3>
+                <h4>Escuela de Alta Dirección Profesional</h4>
+                <span class="date">01/08/2018 - 30/11/2018</span>
+                <ul>
+                    <li>Ejecución de estrategias publicitarias por redes sociales.</li>
+                    <li>Generación y gestión de base de datos.</li>
+                    <li>Coordinación y dirección del equipo de ventas.</li>
+                </ul>
+            </div>
+
+             <!-- Trabajo 7 -->
+             <div class="card">
+                <h3>Asistente de Diseño y Marketing</h3>
+                <h4>El Tablón Food Center</h4>
+                <span class="date">02/05/2018 - 31/07/2018</span>
+                <ul>
+                    <li>Gestión de la Fan Page de El Tablón - Arequipa.</li>
+                    <li>Supervisión de activaciones BTL.</li>
+                    <li>Soporte a diferentes áreas de la empresa en diseño.</li>
+                </ul>
+            </div>
+
+            <!-- Trabajo 8 -->
+            <div class="card">
+                <h3>Community Manager</h3>
+                <h4>Agencia de viajes Amerindia</h4>
+                <span class="date">03/11/2017 - 30/04/2018</span>
+                <ul>
+                    <li>Planificación y ejecución de campañas en medios digitales.</li>
+                    <li>Atención a clientes potenciales por redes sociales.</li>
+                    <li>Diseño de piezas gráficas.</li>
+                </ul>
+            </div>
+            
+            <!-- Trabajo 9 -->
+            <div class="card">
+                <h3>Practicante de Marketing Digital</h3>
+                <h4>BSG Institute</h4>
+                <span class="date">26/04/2017 - 25/08/2017</span>
+                <ul>
+                    <li>Elaboración de campañas en Facebook Ads.</li>
+                    <li>Elaboración de reportes de publicidad.</li>
+                    <li>Generación y gestión de base de datos.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN FORMACIÓN -->
+    <section id="formacion">
+        <h2 class="section-title">Formación Académica</h2>
+        
+        <div class="timeline-grid">
+            <div class="card">
+                <h3>MBA Gerencia de Proyectos de Inversión</h3>
+                <h4>Universidad Nacional de San Agustín de Arequipa</h4>
+                <span class="date">2019 - 2021 | Egresado</span>
+            </div>
+            <div class="card">
+                <h3>Carrera Profesional de Marketing</h3>
+                <h4>Universidad Nacional de San Agustín de Arequipa</h4>
+                <span class="date">2012 - 2016 | Tercio Superior</span>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top: 4rem; font-size: 2rem;">Cursos y Certificaciones</h2>
+        <div class="timeline-grid">
+            <div class="card">
+                <h3>Google Apps Suite (Especialista)</h3>
+                <h4>LinkedIn Learning</h4>
+                <span class="date">Mayo 2021 (19 horas)</span>
+            </div>
+            <div class="card">
+                <h3>Fundamentos de Marketing Digital</h3>
+                <h4>Interactive Advertising Bureau (IAB Europa)</h4>
+                <span class="date">Junio 2020 (40 horas)</span>
+            </div>
+            <div class="card">
+                <h3>Social Media Marketing</h3>
+                <h4>Instituto Europeo de Posgrado IEP</h4>
+                <span class="date">Junio 2020 (50 horas)</span>
+            </div>
+            <div class="card">
+                <h3>Consultor de Marketing y Publicidad</h3>
+                <h4>Plataforma Udemy</h4>
+                <span class="date">Junio 2020 (7.5 horas)</span>
+            </div>
+        </div>
+        
+        <h2 class="section-title" style="margin-top: 4rem; font-size: 2rem;">Voluntariado</h2>
+        <div class="timeline-grid">
+            <div class="card" style="border-top-color: var(--color-secundario);">
+                <h3>Data Analyst</h3>
+                <h4>PMI Capítulo Sur Perú</h4>
+                <span class="date">04/06/2020 - 30/08/2021</span>
+                <ul>
+                    <li>Elaboración de informes de redes sociales.</li>
+                    <li>Diseño de piezas gráficas.</li>
+                    <li>Análisis de datos.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN HABILIDADES -->
+    <section id="habilidades" style="background-color: var(--color-fondo);">
+        <h2 class="section-title">Habilidades y Competencias</h2>
+        
+        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-texto-claro);">Habilidades Blandas y Profesionales</h3>
+        <div class="skills-container">
+            <div class="skill-tag">Resolución de problemas</div>
+            <div class="skill-tag">Diseño gráfico</div>
+            <div class="skill-tag">Trabajo en equipo</div>
+            <div class="skill-tag">Uso de tecnología educativa</div>
+            <div class="skill-tag">Enseñanza y mentoría</div>
+            <div class="skill-tag">Comunicación efectiva</div>
+            <div class="skill-tag">Marketing digital</div>
+        </div>
+
+        <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-texto-claro);">Herramientas de Software</h3>
+        <div class="tools-container">
+            <div class="tool-tag">Excel</div>
+            <div class="tool-tag">Word</div>
+            <div class="tool-tag">PowerPoint</div>
+            <div class="tool-tag">Illustrator</div>
+            <div class="tool-tag">Photoshop</div>
+            <div class="tool-tag">PremierePro</div>
+            <div class="tool-tag">After Effects</div>
+            <div class="tool-tag">Adobe XD</div>
+            <div class="tool-tag">WordPress</div>
+        </div>
+        
+        <h3 style="text-align: center; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--color-texto-claro);">Idiomas</h3>
+        <div class="tools-container">
+            <div class="tool-tag" style="background-color: var(--color-principal);">Español (Nativo)</div>
+            <div class="tool-tag" style="background-color: var(--color-principal);">Inglés (Básico)</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Clipton Mayhua Coaquira. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hamburgerBtn = document.getElementById("hamburger-btn");
+            const navMenu = document.getElementById("nav-menu");
+            const navItems = document.querySelectorAll(".nav-item");
+
+            // Función para alternar el menú
+            const toggleMenu = () => {
+                hamburgerBtn.classList.toggle("active");
+                navMenu.classList.toggle("active");
+                
+                // Prevenir scroll en el body cuando el menú está abierto
+                if(navMenu.classList.contains("active")) {
+                    document.body.style.overflow = "hidden";
+                } else {
+                    document.body.style.overflow = "auto";
+                }
+            };
+
+            // Event listener para el botón hamburguesa
+            hamburgerBtn.addEventListener("click", toggleMenu);
+
+            // Cerrar menú al hacer clic en un enlace (modo móvil)
+            navItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    if (navMenu.classList.contains("active")) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Resaltar el enlace activo en el menú al hacer scroll
+            const sections = document.querySelectorAll("section");
+            
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    // Ajuste para compensar el fixed navbar
+                    if (scrollY >= (sectionTop - 150)) {
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                navItems.forEach(li => {
+                    li.classList.remove("active");
+                    if (li.getAttribute("href").includes(current)) {
+                        li.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
